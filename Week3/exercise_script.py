@@ -18,16 +18,41 @@ def generate_handles(labels, colors, edge='k', alpha=1):
 plt.ion()
 
 # ---------------------------------------------------------------------------------------------------------------------
-# in this section, write the script to load the data and complete the main part of the analysis.
-# try to print the results to the screen using the format method demonstrated in the workbook
+#import practical 3b files, counties and wards
 
-# load the necessary data here and transform to a UTM projection
+# in this section, write the script to load the counties and ward data 
+# and transform to a UTM projection
+# check crs
 
-# your analysis goes here...
+counties = gpd.read_file('data_files/counties.shp')
+wards = gpd.read_file('data_files/NI_wards.shp')
+print(counties.head())
+print(wards.head())
+
+counties=counties.to_crs(epsg=2157)
+wards=wards.to_crs(epsg=2157)
+
+counties.crs
+wards.crs
+
+#complete a spatial join of wards and counties
+#now the population column is in both wards AND join files 
+
+join =gpd.sjoin(wards, counties, how='inner', lsuffix='left', rsuffix='right')
+join
+
+join['Population'].sum()
+
+join.groupby(['CountyName'])['Population'].sum() 
+
+join.groupby(['CountyName', 'Ward'])['Population'].sum()
+
+myCRS = ccrs.UTM(29)
+
 
 # ---------------------------------------------------------------------------------------------------------------------
-# below here, you may need to modify the script somewhat to create your map.
-# create a crs using ccrs.UTM() that corresponds to our CRS
+
+# create a crs using ccrs.UTM(29) that corresponds to our CRS
 myCRS = ccrs.UTM(29)
 # create a figure of size 10x10 (representing the page size in inches
 fig, ax = plt.subplots(1, 1, figsize=(10, 10), subplot_kw=dict(projection=myCRS))

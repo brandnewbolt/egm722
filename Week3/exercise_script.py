@@ -54,6 +54,7 @@ myCRS = ccrs.UTM(29)
 
 # create a crs using ccrs.UTM(29) that corresponds to our CRS
 myCRS = ccrs.UTM(29)
+
 # create a figure of size 10x10 (representing the page size in inches
 fig, ax = plt.subplots(1, 1, figsize=(10, 10), subplot_kw=dict(projection=myCRS))
 

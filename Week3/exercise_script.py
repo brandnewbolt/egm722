@@ -73,11 +73,14 @@ cax = divider.append_axes("right", size="5%", pad=0.1, axes_class=plt.Axes)
 ward_plot = wards.plot(column='Population', ax=ax, vmin=1000, vmax=8000, cmap='viridis',
                        legend=True, cax=cax, legend_kwds={'label': 'Resident Population'})
 
+#plot the county outlines on the axis
 county_outlines = ShapelyFeature(counties['geometry'], myCRS, edgecolor='r', facecolor='none')
 
 ax.add_feature(county_outlines)
+#define the county handles by refering back to the function at the top
 county_handles = generate_handles([''], ['none'], edge='r')
 
+#add county handles to to the legend
 ax.legend(county_handles, ['County Boundaries'], fontsize=12, loc='upper left', framealpha=1)
 
 # save the figure

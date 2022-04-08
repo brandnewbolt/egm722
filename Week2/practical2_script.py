@@ -54,7 +54,6 @@ ax = plt.axes(projection=ccrs.Mercator())  # finally, create an axes object in t
 
 # first, we just add the outline of Northern Ireland using cartopy's ShapelyFeature
 outline_feature = ShapelyFeature(outline['geometry'], myCRS, edgecolor='k', facecolor='w')
-
 xmin, ymin, xmax, ymax = outline.total_bounds
 ax.add_feature(outline_feature) # add the features we've created to the map.
 
@@ -117,6 +116,7 @@ labels = nice_names + ['Lakes', 'Rivers', 'Towns']
 leg = ax.legend(handles, labels, title='Legend', title_fontsize=14,
                  fontsize=12, loc='upper left', frameon=True, framealpha=1)
 
+# add gridlines
 gridlines = ax.gridlines(draw_labels=True,
                          xlocs=[-8, -7.5, -7, -6.5, -6, -5.5],
                          ylocs=[54, 54.5, 55, 55.5])
